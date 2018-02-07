@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 import { fakeAvatar } from '../../utils/constants';
 
@@ -54,17 +55,11 @@ const MetaFullName = styled.Text`
         color: ${props => props.theme.SECONDARY}
 `;
 
-const username = 'lqduong';
-const firstName = 'Le';
-const lastName = 'Duong';
-const createAt = '1 day ago';
-const avatar = fakeAvatar;
-
-function FeedCardHeader() {
+function FeedCardHeader({ username, firstName, lastName, avatar, createdAt }) {
         return (
                 <Root >
                         <AvatarContainer >
-                                <Avatar source={{ uri: avatar }} />
+                                <Avatar source={{ uri: fakeAvatar || avatar }} />
                         </AvatarContainer>
 
                         <MetaContainer>
@@ -80,7 +75,7 @@ function FeedCardHeader() {
 
                                 <MetaBottomContainer >
                                         <MetaText>
-                                                {createAt}
+                                                {distanceInWordsToNow(createdAt)} ago
                                         </MetaText>
                                 </MetaBottomContainer>
                         </MetaContainer>
