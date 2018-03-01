@@ -13,7 +13,7 @@ const Root = styled.View`
 `;
 
 const Button = styled(Touchable).attrs({
-        feedback: 'opacity'
+    feedback: 'opacity'
 }) `
         flex:1;
         marginLeft: 1;
@@ -32,39 +32,39 @@ const ButtonText = styled.Text`
 const isFavorited = false;
 
 function FeedCardBottom({ favoriteCount }) {
-        return (
-                <Root>
-                        <Button>
-                                <SimpleLineIcons
-                                        name="bubble"
-                                        size={ICON_SIZE} color={colors.LIGHT_GRAY}
-                                />
-                                <ButtonText>
-                                        {favoriteCount}
-                                </ButtonText>
-                        </Button>
+    return (
+        <Root>
+            <Button>
+                <SimpleLineIcons
+                    name="bubble"
+                    size={ICON_SIZE} color={colors.LIGHT_GRAY}
+                />
+                <ButtonText>
+                    {favoriteCount}
+                </ButtonText>
+            </Button>
 
-                        <Button>
-                                <Entypo
-                                        name="retweet"
-                                        size={ICON_SIZE} color={colors.LIGHT_GRAY}
-                                />
-                                <ButtonText>
-                                        {favoriteCount}
-                                </ButtonText>
-                        </Button>
+            <Button>
+                <Entypo
+                    name="retweet"
+                    size={ICON_SIZE} color={colors.LIGHT_GRAY}
+                />
+                <ButtonText>
+                    {favoriteCount}
+                </ButtonText>
+            </Button>
 
-                        <Button>
-                                <Entypo
-                                        name="heart-outlined" size={ICON_SIZE}
-                                        color={isFavorited ? 'red' : colors.LIGHT_GRAY}
-                                />
-                                <ButtonText>
-                                        {favoriteCount}
-                                </ButtonText>
-                        </Button>
-                </Root>
-        );
+            <Button>
+                <Entypo
+                    name="heart-outlined" size={ICON_SIZE}
+                    color={isFavorited ? 'red' : colors.LIGHT_GRAY}
+                />
+                <ButtonText>
+                    {favoriteCount}
+                </ButtonText>
+            </Button>
+        </Root>
+    );
 }
 
 export default FeedCardBottom;
