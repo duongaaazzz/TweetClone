@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 
+import SignupForm from '../components/SignupForm';
+
 const Root = styled.View`
     flex:1;
     backgroundColor: ${props => props.theme.SECONDARY};
     position: relative;
 `;
 
-const ButtomLoginText = styled.Text`
+const ButtomSignupText = styled.Text`
     color: ${props => props.theme.WHITE};
     fontWeight: bold;
     fontSize: 20;
 `;
 
-const ButtonLogin = styled(Touchable).attrs({
+const ButtomSignup = styled(Touchable).attrs({
     feedback: 'opacity'
 }) `
     height: 10%;
@@ -30,6 +32,7 @@ const ButtonLogin = styled(Touchable).attrs({
     shadowOpacity: 0.4;
     shadowOffset: 0px 4px;
     shadowColor: #000;
+    elevation: 2;
 `;
 
 const BottomTextContainer = styled.View`
@@ -42,7 +45,7 @@ const BottomTextContainer = styled.View`
     alignItems: center;
 `;
 
-const ButtomCreateAccount = styled(Touchable).attrs({
+const ButtomLogin = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlop: { top: 15, bottom: 15, right: 10, left: 10 }
 }) `
@@ -56,19 +59,37 @@ const ButtomText = styled.Text`
     fontSize: 14;
 `;
 
+const initialState = {
+    showSignup: true,
+    showLogin: false
+};
+
 class AuthenticationScreen extends Component {
+    state = initialState;
+
+    _onShowSignupFormPress = () => this.setState({ showSignup: true });
+    _onBackPress = () => this.setState({ ...initialState });
+
     render() {
+        if (this.state.showSignup) {
+            return (
+                <Root>
+                    <SignupForm onBackPress={this._onBackPress} />
+                </Root>
+            )
+        };
+
         return (
             <Root>
-                <ButtonLogin>
-                    <ButtomLoginText>Get Started</ButtomLoginText>
-                </ButtonLogin>
+                <ButtomSignup onPress={this._onShowSignupFormPress}>
+                    <ButtomSignupText>Get Started</ButtomSignupText>
+                </ButtomSignup>
                 <BottomTextContainer>
-                    <ButtomCreateAccount>
+                    <ButtomLogin>
                         <ButtomText>
                             Already have an account?
                         </ButtomText>
-                    </ButtomCreateAccount>
+                    </ButtomLogin>
                 </BottomTextContainer>
             </Root>
         );
