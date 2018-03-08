@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Touchable from '@appandflow/touchable';
-import { Platform } from 'react-native';
+import { Platform, Keyboard } from 'react-native';
 
 import { colors } from '../utils/constants';
 
-const Root = styled.View`
+const Root = styled(Touchable).attrs({
+    feedback: 'none'
+}) `
     flex: 1;
     justifyContent: center;
     alignItems: center;
 `;
-
-const T = styled.Text``;
 
 const BackButtom = styled(Touchable).attrs({
     feedback: 'opacity'
@@ -22,6 +22,7 @@ const BackButtom = styled(Touchable).attrs({
     position: absolute;
     top: 5%;
     left: 5%;
+    margin
 `;
 
 const Wrapper = styled.View`
@@ -73,10 +74,29 @@ const ComfirmTextButtom = styled.Text`
 `;
 
 class SignupForm extends Component {
-    state = {}
+    state = {
+        fullName: '',
+        email: '',
+        username: '',
+        password: ''
+    }
+
+    _onOutsidePress = () => Keyboard.dismiss();
+    _onChangeText = (text, type) => this.setState({ [type]: text });
+
+    _checkIfDisabled() {
+        const { fullName, email, username, password } = this.state;
+
+        if (!fullName || !email || !password) {
+            return true
+        }
+
+        return false
+    }
+
     render() {
         return (
-            <Root>
+            <Root onPress={this._onOutsidePress}>
                 <BackButtom onPress={this.props.onBackPress}>
                     <MaterialIcons
                         color={colors.WHITE}
@@ -86,23 +106,39 @@ class SignupForm extends Component {
                 </BackButtom>
                 <Wrapper>
                     <InputWrapper>
-                        <Input placeholder="Full Name" />
+                        <Input
+                            placeholder="Full Name"
+                            autoCapitalize="words"
+                            onChangeText={text => this._onChangeText(text, 'fullName')}
+                        />
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Input placeholder="Email" />
+                        <Input
+                            placeholder="Email"
+                            keyboardType="email-address"
+                            onChangeText={text => this._onChangeText(text, 'email')}
+                        />
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Input placeholder="Username" />
+                        <Input
+                            placeholder="Username"
+                            autoCapitalize="none"
+                            onChangeText={text => this._onChangeText(text, 'username')}
+                        />
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Input placeholder="Password" />
+                        <Input
+                            placeholder="Password"
+                            secureTextEntry
+                            onChangeText={text => this._onChangeText(text, 'password')}
+                        />
                     </InputWrapper>
                 </Wrapper>
 
-                <ComfirmButtom>
+                <ComfirmButtom disabled={this._checkIfDisabled()}>
                     <ComfirmTextButtom>
                         Sign Up
                         </ComfirmTextButtom>
