@@ -10,13 +10,13 @@ const T = styled.Text`
 `;
 
 class Explores extends Component {
-        render() {
-                return (
-                        <Root>
-                                <T>Explores</T>
-                        </Root>
-                );
-        }
+    render() {
+        return (
+            <Root>
+                <T>Explores</T>
+            </Root>
+        );
+    }
 }
 
 export default Explores;
