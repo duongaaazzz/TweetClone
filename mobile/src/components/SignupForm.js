@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Touchable from '@appandflow/touchable';
-import { Platform, Keyboard } from 'react-native';
+import { Platform, Keyboard, AsyncStorage } from 'react-native';
 import { graphql } from 'react-apollo';
 
 import { colors, fakeAvatar } from '../utils/constants';
+import Loading from '../components/Loading';
 
 import SIGNUP_MUTATION from '../graphql/mutation/signup';
 
@@ -82,7 +83,8 @@ class SignupForm extends Component {
         fullName: '',
         email: '',
         username: '',
-        password: ''
+        password: '',
+        loading: false
     }
 
     _onOutsidePress = () => Keyboard.dismiss();
@@ -99,11 +101,13 @@ class SignupForm extends Component {
     }
 
     _onSignUpPress = async () => {
+        this.setState({ loading: true });
+
         const { fullName, email, password, username } = this.state;
         const avatar = fakeAvatar;
 
-        const { data } = this.props.mutate({
-            variables:{
+        const { data } = await this.props.mutate({
+            variables: {
                 fullName,
                 email,
                 password,
@@ -112,9 +116,20 @@ class SignupForm extends Component {
             }
         });
 
+        try {
+            await AsyncStorage.setItem('@twittercloneapplication', data.signup.token);
+            return this.setState({ loading: false });
+        } catch (error) {
+            throw error;
+        }
+
     }
 
     render() {
+        if (this.state.loading) {
+            return <Loading />
+        }
+
         return (
             <Root onPress={this._onOutsidePress}>
                 <BackButtom onPress={this.props.onBackPress}>
@@ -137,6 +152,7 @@ class SignupForm extends Component {
                         <Input
                             placeholder="Email"
                             keyboardType="email-address"
+                            autoCapitalize="none"
                             onChangeText={text => this._onChangeText(text, 'email')}
                         />
                     </InputWrapper>
