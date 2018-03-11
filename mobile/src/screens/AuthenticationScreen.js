@@ -18,9 +18,8 @@ const ButtomSignupText = styled.Text`
 
 const ButtomSignup = styled(Touchable).attrs({
     feedback: 'opacity'
-}) `
-    height: 10%;
-    width:40%;
+}) `   
+    height: 10%;   width:40%;
     backgroundColor: ${props => props.theme.PRIMARY};
     justifyContent: center;
     alignItems: center;

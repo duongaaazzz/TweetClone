@@ -3,8 +3,11 @@ import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Touchable from '@appandflow/touchable';
 import { Platform, Keyboard } from 'react-native';
+import { graphql } from 'react-apollo';
 
-import { colors } from '../utils/constants';
+import { colors, fakeAvatar } from '../utils/constants';
+
+import SIGNUP_MUTATION from '../graphql/mutation/signup';
 
 const Root = styled(Touchable).attrs({
     feedback: 'none'
@@ -15,7 +18,8 @@ const Root = styled(Touchable).attrs({
 `;
 
 const BackButtom = styled(Touchable).attrs({
-    feedback: 'opacity'
+    feedback: 'opacity',
+    hitSlop: { top: 15, bottom: 15, right: 15, left: 15 }
 }) `
     justifyContent: center;
     alignItems: center;
@@ -84,14 +88,30 @@ class SignupForm extends Component {
     _onOutsidePress = () => Keyboard.dismiss();
     _onChangeText = (text, type) => this.setState({ [type]: text });
 
-    _checkIfDisabled() {
+    _checkIfNullInputDisabled() {
         const { fullName, email, username, password } = this.state;
 
-        if (!fullName || !email || !password) {
+        if (!fullName || !email || !password || !username) {
             return true
         }
 
         return false
+    }
+
+    _onSignUpPress = async () => {
+        const { fullName, email, password, username } = this.state;
+        const avatar = fakeAvatar;
+
+        const { data } = this.props.mutate({
+            variables:{
+                fullName,
+                email,
+                password,
+                username,
+                avatar
+            }
+        });
+
     }
 
     render() {
@@ -138,7 +158,10 @@ class SignupForm extends Component {
                     </InputWrapper>
                 </Wrapper>
 
-                <ComfirmButtom disabled={this._checkIfDisabled()}>
+                <ComfirmButtom
+                    onPress={this._onSignUpPress}
+                    disabled={this._checkIfNullInputDisabled()}
+                >
                     <ComfirmTextButtom>
                         Sign Up
                         </ComfirmTextButtom>
@@ -148,4 +171,4 @@ class SignupForm extends Component {
     }
 }
 
-export default SignupForm;
+export default graphql(SIGNUP_MUTATION)(SignupForm);
