@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/9.6.1/bin/node /usr/local/bin/yarn debuger
+  /usr/local/Cellar/node/9.6.1/bin/node /usr/local/bin/yarn add -D redux-loggergit add .
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -40,10 +40,11 @@ npm manifest:
   	},
   	"devDependencies": {
   		"eslint": "^4.3.0",
-  		"eslint-config-equimper": "^2.2.1",
+  		"eslint-config-equimper": "^2.2.2",
   		"eslint-config-prettier": "^2.3.0",
   		"prettier": "^1.5.3",
-  		"redux-devtools-extension": "^2.13.2"
+  		"redux-devtools-extension": "^2.13.2",
+  		"redux-logger": "^3.0.6"
   	}
   }
 
@@ -1630,6 +1631,10 @@ Lockfile:
     version "0.6.0"
     resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.6.0.tgz#0e6da8f0ce52838ef5cec5c8f9396b0c1b64a3cb"
   
+  deep-diff@^0.3.5:
+    version "0.3.8"
+    resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
+  
   deep-is@~0.1.3:
     version "0.1.3"
     resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
@@ -1856,7 +1861,7 @@ Lockfile:
       esrecurse "^4.1.0"
       estraverse "^4.1.1"
   
-  eslint-config-equimper@^2.2.1:
+  eslint-config-equimper@^2.2.2:
     version "2.2.2"
     resolved "https://registry.yarnpkg.com/eslint-config-equimper/-/eslint-config-equimper-2.2.2.tgz#be3c9466ad4a1cc5558fb38b8b755c744d455cb5"
     dependencies:
@@ -4090,6 +4095,12 @@ Lockfile:
     version "2.13.2"
     resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.2.tgz#e0f9a8e8dfca7c17be92c7124958a3b94eb2911d"
   
+  redux-logger@^3.0.6:
+    version "3.0.6"
+    resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
+    dependencies:
+      deep-diff "^0.3.5"
+  
   redux-thunk@^2.2.0:
     version "2.2.0"
     resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
@@ -5007,14 +5018,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-0.4.4.tgz#c244c71eaebef79a985ccf9895bc90307a6e9712"
 
 Trace: 
-  Error: Command "debuger" not found.
+  Error: Couldn't find package "redux-loggergit" on the "npm" registry.
       at new MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:87307:17
+      at NpmResolver.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:51625:15)
       at Generator.next (<anonymous>)
       at step (/usr/local/lib/node_modules/yarn/lib/cli.js:98:30)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:116:14
-      at new Promise (<anonymous>)
-      at new F (/usr/local/lib/node_modules/yarn/lib/cli.js:23451:28)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:95:12
-      at runCommand (/usr/local/lib/node_modules/yarn/lib/cli.js:87312:22)
-      at Object.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:87412:14)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:109:13
+      at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:160:7)
