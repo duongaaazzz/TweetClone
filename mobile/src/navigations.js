@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, SimpleLineIcons } from '@expo/vector-icons';
 
 import HomeScreen from './screens/HomeScreen';
 import ExploredScreen from './screens/ExpoloresScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
+import CreateTweetScreen from './screens/CreateTweetScreen';
+
 import HeaderAvatar from './components/HeaderAvatar';
+import HeaderButton from './components/HeaderButton';
 
 import { colors } from './utils/constants';
 
@@ -69,12 +72,30 @@ const Tabs = TabNavigator({
     }
 );
 
+const CreateTweetModal = StackNavigator(
+    {
+        CreateTweet: {
+            screen: CreateTweetScreen,
+        }
+    }, {
+        headerMode: 'none'
+    }
+);
+
 const AppMainNav = StackNavigator({
     Home: {
         screen: Tabs,
-        navigationOptions: () => ({
-            headerLeft: <HeaderAvatar />
+        navigationOptions: ({ navigation }) => ({
+            headerLeft: <HeaderAvatar />,
+            headerRight: (
+                <HeaderButton margin="right" onPress={() => navigation.navigate('CreateTwwet')}>
+                    <SimpleLineIcons color={colors.PRIMARY} size={20} name="pencil" />
+                </HeaderButton>
+            )
         })
+    },
+    CreateTwwet: {
+        screen: CreateTweetModal
     }
 }, {
         cardStyle: {
