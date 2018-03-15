@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
+import { Platform, Keyboard } from 'react-native';
 import Touchable from '@appandflow/touchable';
+import { graphql, compose } from 'react-apollo';
+import { connect } from 'react-redux';
 
 import { colors } from '../utils/constants';
+
+import CREATE_TWEET_MUTATION from '../graphql/mutation/createTweet';
+import GET_TWEETS_QUERY from '../graphql/queries/getTweets';
 
 const Root = styled.View`
     backgroundColor: ${props => props.theme.WHITE};
@@ -68,7 +73,56 @@ class CreateTweetScreen extends Component {
         return 150 - this.state.textInput.length;
     }
 
+    get _buttonDisabled() {
+        return this.state.textInput.length < 5;
+    }
+
     _onChangeTextInput = textInput => this.setState({ textInput });
+
+    _onCreateTweetPrees = async () => {
+        const { user } = this.props;
+
+        try {
+            await this.props.mutate({
+                variables: {
+                    text: this.state.textInput
+                },
+                optimisticResponse: {
+                    __typename: 'Mutation',
+                    createTweet: {
+                        __typename: 'Tweet',
+                        text: this.state.textInput,
+                        favoriteCount: 0,
+                        _id: Math.round(Math.random() * -1000000),
+                        createdAt: new Date(),
+                        user: {
+                            __typename: 'User',
+                            username: user.username,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            avatar: user.avatar
+                        }
+                    }
+                },
+                update: (store, { data: { createTweet } }) => {
+                    const data = store.readQuery({ query: GET_TWEETS_QUERY });
+
+                    if (!data.getTweets.find(t => t._id === createTweet._id)) {
+                        store.writeQuery({
+                            query: GET_TWEETS_QUERY,
+                            data: { getTweets: [{ ...createTweet }, ...data.getTweets] }
+                        })
+                    }
+                }
+            });
+
+            Keyboard.dismiss();
+            this.props.navigation.goBack(null);
+
+        } catch (error) {
+            throw error
+        }
+    };
 
     render() {
         return (
@@ -76,7 +130,7 @@ class CreateTweetScreen extends Component {
                 <Wrapper>
                     <Input value={this.state.textInput} onChangeText={this._onChangeTextInput} />
                     <TextLengthInput>{this._textLength}</TextLengthInput>
-                    <TweetButton>
+                    <TweetButton onPress={this._onCreateTweetPrees} disabled={this._buttonDisabled}>
                         <TweetButtonText> Tweet </TweetButtonText>
                     </TweetButton>
                 </Wrapper>
@@ -85,4 +139,7 @@ class CreateTweetScreen extends Component {
     }
 }
 
-export default CreateTweetScreen;
+export default compose(
+    graphql(CREATE_TWEET_MUTATION),
+    connect(state => ({ user: state.user.info }))
+)(CreateTweetScreen);
