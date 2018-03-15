@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Keyboard } from 'react-native';
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FontAwesome, SimpleLineIcons } from '@expo/vector-icons';
+import { FontAwesome, SimpleLineIcons, EvilIcons } from '@expo/vector-icons';
 
 import HomeScreen from './screens/HomeScreen';
 import ExploredScreen from './screens/ExpoloresScreen';
@@ -76,6 +77,19 @@ const CreateTweetModal = StackNavigator(
     {
         CreateTweet: {
             screen: CreateTweetScreen,
+            navigationOptions: ({ navigation }) => ({
+                headerLeft: <HeaderAvatar />,
+                headerRight: (
+                    <HeaderButton
+                        margin="right"
+                        onPress={() => {
+                            navigation.goBack(null);
+                            Keyboard.dismiss();
+                        }}>
+                        <EvilIcons color={colors.PRIMARY} size={25} name="close" />
+                    </HeaderButton>
+                )
+            })
         }
     }, {
         headerMode: 'none'
