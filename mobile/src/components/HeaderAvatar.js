@@ -37,14 +37,14 @@ class HeaderAvatar extends Component {
     render() {
         if (!this.props.info) {
             return (
-                <HeaderButton margin="left" disabled>
+                <HeaderButton margin="Left" disabled>
                     <Loading size="small" />
                 </HeaderButton>
             )
         }
 
         return (
-            <HeaderButton margin="left" onPress={this._onOpenActionSheetPress}>
+            <HeaderButton margin="Left" onPress={this._onOpenActionSheetPress}>
                 <Avatar source={{ uri: this.props.info.avatar }} />
             </HeaderButton>
         );

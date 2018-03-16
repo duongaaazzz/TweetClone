@@ -26,7 +26,7 @@ const Wrapper = styled.View`
 const Input = styled.TextInput.attrs({
     placeholder: "what's happening?",
     multiline: true,
-    maxLength: 150,
+    maxLength: 140,
     selectionColor: Platform.OS === 'ios' && colors.PRIMARY,
     autoFocus: true
 }) `
@@ -70,7 +70,7 @@ class CreateTweetScreen extends Component {
     };
 
     get _textLength() {
-        return 150 - this.state.textInput.length;
+        return 140 - this.state.textInput.length;
     }
 
     get _buttonDisabled() {

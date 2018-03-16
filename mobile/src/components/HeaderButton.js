@@ -6,8 +6,7 @@ const Buttom = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlop: { top: 15, bottom: 15, right: 15, left: 15 }
 }) `
-    marginRight: ${props => props.margin === 'right' ? 15 : 0};
-    marginLeft: ${props => props.margin === 'left' ? 15 : 0};
+    margin${props => props.margin}: 15;
     justifyContent: center;
     alignItems: center;
     marginLeft: 15;

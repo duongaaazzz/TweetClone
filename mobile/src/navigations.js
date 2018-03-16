@@ -81,7 +81,7 @@ const CreateTweetModal = StackNavigator(
                 headerLeft: <HeaderAvatar />,
                 headerRight: (
                     <HeaderButton
-                        margin="right"
+                        margin="Right"
                         onPress={() => {
                             navigation.goBack(null);
                             Keyboard.dismiss();
@@ -96,13 +96,14 @@ const CreateTweetModal = StackNavigator(
     }
 );
 
+
 const AppMainNav = StackNavigator({
     Home: {
         screen: Tabs,
         navigationOptions: ({ navigation }) => ({
             headerLeft: <HeaderAvatar />,
             headerRight: (
-                <HeaderButton margin="right" onPress={() => navigation.navigate('CreateTwwet')}>
+                <HeaderButton margin="Right" onPress={() => navigation.navigate('CreateTwwet')}>
                     <SimpleLineIcons color={colors.PRIMARY} size={20} name="pencil" />
                 </HeaderButton>
             )

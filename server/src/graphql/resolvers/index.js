@@ -5,21 +5,24 @@ import UserResolvers from './user-resolvers';
 import User from '../../models/User';
 
 export default {
-        Date: GraphQLDate,
-        Tweet: {
-                user: ({ user }) => User.findById(user),
-        },
-        Query: {
-                getTweet: TweetResolvers.getTweet,
-                getTweets: TweetResolvers.getTweets,
-                getUserTweets: TweetResolvers.getUserTweets,
-                me: UserResolvers.me
-        },
-        Mutation: {
-                createTweet: TweetResolvers.createTweet,
-                updateTweet: TweetResolvers.updateTweet,
-                deleteTweet: TweetResolvers.deleterTweet,
-                signup: UserResolvers.signup,
-                login: UserResolvers.login
-        }
+    Date: GraphQLDate,
+    Tweet: {
+        user: ({ user }) => User.findById(user),
+    },
+    Query: {
+        getTweet: TweetResolvers.getTweet,
+        getTweets: TweetResolvers.getTweets,
+        getUserTweets: TweetResolvers.getUserTweets,
+        me: UserResolvers.me
+    },
+    Mutation: {
+        createTweet: TweetResolvers.createTweet,
+        updateTweet: TweetResolvers.updateTweet,
+        deleteTweet: TweetResolvers.deleterTweet,
+        signup: UserResolvers.signup,
+        login: UserResolvers.login
+    },
+    Subscription:{
+        tweetAdded: TweetResolvers.tweetAdded
+    }
 };
