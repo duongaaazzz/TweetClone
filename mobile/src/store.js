@@ -5,15 +5,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { SubscriptionClient, addGraphQLSuscriptions } from 'subscriptions-transport-ws';
+import { SubscriptionClient,  } from 'subscriptions-transport-ws';
 
 import reducers from './reducers';
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://192.168.1.14:3000/graphql',
+  uri: 'http://localhost:3000/graphql',
 });
 
-const wsClient = new SubscriptionClient('ws://192.168.1.14:3000/subscriptions', {
+const wsClient = new SubscriptionClient('ws://localhost:3000/subscriptions', {
   reconnect: true,
   connectionParams: {}
 });
@@ -37,7 +37,7 @@ networkInterface.use([{
   }
 }]);
 
-const networkInterfaceWithSubs = addGraphQLSuscriptions(
+const networkInterfaceWithSubs = addGraphQLSubscriptions(
   networkInterface,
   wsClient
 );
