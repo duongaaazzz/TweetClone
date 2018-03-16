@@ -13,14 +13,10 @@ const networkInterface = createNetworkInterface({
   uri: 'http://192.168.1.14:3000/graphql',
 });
 
-export const client = new ApolloClient({
-  networkInterface,
-});
-
 const wsClient = new SubscriptionClient('ws://192.168.1.14:3000/subscriptions', {
   reconnect: true,
   connectionParams: {}
-})
+});
 
 networkInterface.use([{
   async applyMiddleware(req, next) {
@@ -39,8 +35,16 @@ networkInterface.use([{
     }
     return next();
   }
-
 }]);
+
+const networkInterfaceWithSubs = addGraphQLSuscriptions(
+  networkInterface,
+  wsClient
+);
+
+export const client = new ApolloClient({
+  networkInterface: networkInterfaceWithSubs
+});
 
 const middlewares = [client.middleware(), thunk, createLogger()];
 
