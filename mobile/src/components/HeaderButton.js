@@ -12,7 +12,7 @@ const Buttom = styled(Touchable).attrs({
     marginLeft: 15;
 `;
 
-export default function HeaderButton({ margin, children, onPress, disable }) {
+export default function HeaderButton({ margin = '', children, onPress, disable }) {
     return (
         <Buttom onPress={onPress} disable={disable} margin={margin}>
             {children}
