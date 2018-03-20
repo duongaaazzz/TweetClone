@@ -5,7 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { SubscriptionClient,  } from 'subscriptions-transport-ws';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 
 import reducers from './reducers';
 
