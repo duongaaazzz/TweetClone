@@ -9,7 +9,7 @@ import { execute, subscribe } from 'graphql';
 import './config/db';
 import constants from './config/constants';
 import middlewares from './config/middlewares';
-// import mocks from './mocks';
+//import mocks from './mocks';
 
 import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
@@ -39,13 +39,13 @@ app.use(constants.GRAPHQL_PATH, graphqlExpress(req => ({
 
 const graphQLServer = createServer(app);
 
-// mocks().then(() => {
+//mocks().then(() => {
 
 graphQLServer.listen(constants.PORT, err => {
     if (err) {
         console.error(err);
     } else {
-        new SubscriptionServer({ // eslint-disable-line
+        new SubscriptionServer.create({ // eslint-disable-line
             schema,
             execute,
             subscribe
@@ -58,4 +58,4 @@ graphQLServer.listen(constants.PORT, err => {
     }
 });
 
-// });
+//});

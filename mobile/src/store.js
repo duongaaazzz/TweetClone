@@ -10,10 +10,10 @@ import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-trans
 import reducers from './reducers';
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'https://shrouded-shore-67396.herokuapp.com/graphql',
 });
 
-const wsClient = new SubscriptionClient('ws://localhost:3000/subscriptions', {
+const wsClient = new SubscriptionClient('ws://shrouded-shore-67396.herokuapp.com/subscriptions', {
   reconnect: true,
   connectionParams: {}
 });
