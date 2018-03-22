@@ -123,7 +123,8 @@ const AppMainNav = StackNavigator({
             headerTitleStyle: {
                 fontWeight: 'bold',
                 color: colors.SECONDARY
-            }
+            },
+
         })
     }
 );

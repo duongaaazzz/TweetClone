@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import { SimpleLineIcons, Entypo } from '@expo/vector-icons';
 import Touchable from '@appandflow/touchable';
